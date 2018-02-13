@@ -32,8 +32,6 @@ Your form template can look something like this:
   {{ csrfInput() }}
   <input type="hidden" name="action" value="salesforce-leads/post">
   <input type="hidden" name="redirect" value="{{ 'contact/thanks'|hash }}">
-  <input type="hidden" name="oid" value="{{ '936A151D88D8C'|hash }}">
-  <input type="hidden" name="retURL" value="{{ 'https://www.yoursite.com'|hash }}">
   <input type="hidden" name="lead_source" value="{{ 'Web'|hash }}">
   <input type="hidden" name="Campaign_ID" value="{{ 'FA4316257629E'|hash }}">
 
