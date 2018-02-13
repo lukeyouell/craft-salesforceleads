@@ -124,7 +124,7 @@ We are posting to Salesforce using a POST request, so we don't receive any meani
 ```json
 {
    "success": false,
-   "reason":"cURL error 6: Could not resolve host: webto.salesforce.co.uk (see http://curl.haxx.se/libcurl/c/libcurl-errors.html)",
+   "reason": "Error message will be shown here",
    "payload": {
       "Campaign_ID": "FA4316257629E",
       "name": "Joe Bloggs",
