@@ -58,7 +58,7 @@ class PostService extends Component
             'success' => true,
             'statusCode' => $response->getStatusCode(),
             'reason' => $response->getReasonPhrase(),
-            'body' => json_decode($response->getBody(), true),
+            'body' => $response->getBody(),
             'payload' => $request
           ];
 
