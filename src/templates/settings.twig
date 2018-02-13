@@ -1,0 +1,39 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Salesforce Leads plugin for Craft CMS 3.x
+ *
+ * Salesforce Leads Settings.twig
+ *
+ * @author    Luke Youell
+ * @copyright Copyright (c) 2018 Luke Youell
+ * @link      https://github.com/lukeyouell
+ * @package   SalesforceLeads
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% macro configWarning(setting) -%}
+  {% set setting = '<code>' ~ setting ~ '</code>' %}
+  {{ 'This is being overridden by the {setting} config setting in your {file} config file.'|t('sentry', {
+      setting: setting,
+      file:    'salesforce-leads.php'
+  })|raw }}
+{%- endmacro %}
+
+{% from _self import configWarning %}
+
+{{ forms.textField({
+    first:        true,
+    required:     true,
+    label:        'Organisation ID',
+    instructions: 'You can override this value in your form.',
+    id:           'organisationId',
+    name:         'organisationId',
+    placeholder:  '00A10000000AAA1',
+    value:        settings.organisationId,
+    disabled:     'organisationId' in overrides,
+    warning:      'organisationId' in overrides ? configWarning('organisationId')
+}) }}
