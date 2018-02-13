@@ -43,9 +43,9 @@ class PostController extends Controller
         
         // Salesforce values
         $oid = $request->getBodyParam('oid');
-        $retUrl = $request->getBodyParam('retUrl');
-        $leadSource = $request->getBodyParam('leadSource');
-        $campaignId = $request->getBodyParam('campaignId');
+        $retUrl = $request->getBodyParam('retURL');
+        $leadSource = $request->getBodyParam('lead_source');
+        $campaignId = $request->getBodyParam('Campaign_ID');
 
         // Set Salesforce params
         $salesforce = [];
