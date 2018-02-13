@@ -1,3 +1,5 @@
+<img src="resources/img/icon.png" alt="icon" width="143" height="100">
+
 # Salesforce Leads plugin for Craft CMS 3.x
 
 Generate Salesforce leads from form submissions.
