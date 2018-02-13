@@ -95,7 +95,7 @@ $('#myForm').submit(function(ev) {
 
 ### Handling Responses
 
-We are posting to Salesforce using a POST request, so we don't receive any meaningful feedback back. The request will only error if there is a problem with the request itself.
+We are posting to Salesforce using a HTTP POST request, so we don't receive any meaningful feedback back. The request will only error if there is a problem with the request itself.
 
 #### Successful
 
