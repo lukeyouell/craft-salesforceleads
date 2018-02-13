@@ -40,15 +40,19 @@ class PostController extends Controller
 
         // Clean post
         $post = PostService::cleanPost($request->post());
+        
+        // Salesforce values
+        $oid = $request->getBodyParam('oid');
+        $retUrl = $request->getBodyParam('retUrl');
+        $leadSource = $request->getBodyParam('leadSource');
+        $campaignId = $request->getBodyParam('campaignId');
 
         // Set Salesforce params
         $salesforce = [];
-        $oid = $request->getBodyParam('oid');
-        $retUrl = $request->getBodyParam('retURL');
-        $leadSource = $request->getBodyParam('lead_source');
         $salesforce['oid'] = $oid ? Craft::$app->security->validateData($oid) : $settings->organisationId;
         $salesforce['retURL'] = $retUrl ? Craft::$app->security->validateData($retUrl) : Craft::$app->sites->currentSite->baseUrl;
         $salesforce['lead_source'] = $leadSource ? Craft::$app->security->validateData($leadSource) : null;
+        $salesforce['Campaign_ID'] = $campaignId ? Craft::$app->security->validateData($campaignId) : null;
 
         // Merge form submission and salesforce params
         $data = array_merge($post, $salesforce);
