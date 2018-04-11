@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 ## 1.0.1 - 2018-04-11
 
 ### Added
-- added beforeSave and afterSave events
+- Added beforeSave and afterSave events
 
 ### Changed
 - Set Craft CMS minimum requirement to `^3.0.1`
