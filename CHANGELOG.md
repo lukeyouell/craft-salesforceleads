@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased
+## 1.0.1 - 2018-04-11
 
 ### Added
 - added beforeSave and afterSave events
