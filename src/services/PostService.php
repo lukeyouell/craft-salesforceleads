@@ -14,6 +14,7 @@ use lukeyouell\salesforceleads\SalesforceLeads;
 
 use Craft;
 use craft\base\Component;
+use lukeyouell\salesforceleads\events\SendEvent;
 
 /**
  * @author    Luke Youell
@@ -22,6 +23,19 @@ use craft\base\Component;
  */
 class PostService extends Component
 {
+    // Constants
+    // =========================================================================
+
+    /**
+     * @event SubmissionEvent The event that is triggered before a message is sent
+     */
+    const EVENT_BEFORE_SEND = 'beforeSend';
+
+    /**
+     * @event SubmissionEvent The event that is triggered after a message is sent
+     */
+    const EVENT_AFTER_SEND = 'afterSend';
+
     // Public Methods
     // =========================================================================
 
@@ -38,6 +52,13 @@ class PostService extends Component
 
     public static function postRequest($request)
     {
+        // Fire a 'beforeSend' event
+        $event = new SendEvent([
+          'submission' => $request,
+        ]);
+        $self = new static;
+        $self->trigger(self::EVENT_BEFORE_SEND, $event);
+
         $client = new \GuzzleHttp\Client([
           'base_uri' => 'https://webto.salesforce.com',
           'http_errors' => false,
@@ -53,6 +74,13 @@ class PostService extends Component
               'form_params' => $request
             ]
           );
+
+          // Fire an 'afterSend' event
+          $event = new SendEvent([
+            'submission' => $request,
+          ]);
+          $self = new static;
+          $self->trigger(self::EVENT_AFTER_SEND, $event);
 
           return [
             'success' => true,
