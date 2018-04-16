@@ -1,4 +1,4 @@
-<img src="src/icon.svg" alt="icon" width="143" height="100">
+<img src="src/icon.svg" alt="icon" width="100" height="100">
 
 # Salesforce Leads plugin for Craft CMS 3.x
 
