@@ -25,6 +25,8 @@
 
 {% from _self import configWarning %}
 
+<h2 class="first">Credentials</h2>
+
 {{ forms.textField({
     first:        true,
     required:     true,
@@ -38,7 +40,12 @@
     warning:      'organisationId' in overrides ? configWarning('organisationId')
 }) }}
 
+<hr>
+
+<h2 class="first">Honeypot Captcha</h2>
+
 {{ forms.lightswitchField({
+  first:         true,
   label:        'Honeypot Captcha',
   instructions: 'Block spam submissions using the [honeypot captcha](https://haacked.com/archive/2007/09/11/honeypot-captcha.aspx/) method.',
   id:           'honeypot',
@@ -58,3 +65,70 @@
     disabled:     'honeypotParam' in overrides,
     warning:      'honeypotParam' in overrides ? configWarning('honeypotParam')
 }) }}
+
+{% if emailValidator %}
+<hr>
+
+<h2 class="first">Email Validator</h2>
+
+{{ forms.textField({
+    label:        'Email Form Param',
+    instructions: 'The name that the email field should have.',
+    id:           'evFormParam',
+    name:         'evFormParam',
+    placeholder:  settings.evFormParam,
+    value:        settings.evFormParam,
+    disabled:     'evFormParam' in overrides,
+    warning:      'evFormParam' in overrides ? configWarning('evFormParam')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'MX Records',
+  instructions: 'Allow submissions from domains that aren\'t configured to receive email.',
+  id:           'evAllowNoMX',
+  name:         'evAllowNoMX',
+  on:           settings.evAllowNoMX,
+  disabled:     'evAllowNoMX' in overrides,
+  warning:      'evAllowNoMX' in overrides ? configWarning('evAllowNoMX')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Catch All',
+  instructions: 'Allow submissions from domains that are configured to catch all incoming mail traffic.',
+  id:           'evAllowCatchAll',
+  name:         'evAllowCatchAll',
+  on:           settings.evAllowCatchAll,
+  disabled:     'evAllowCatchAll' in overrides,
+  warning:      'evAllowCatchAll' in overrides ? configWarning('evAllowCatchAll')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Roles',
+  instructions: 'Allow submissions from role-based email addresses.',
+  id:           'evAllowRoles',
+  name:         'evAllowRoles',
+  on:           settings.evAllowRoles,
+  disabled:     'evAllowRoles' in overrides,
+  warning:      'evAllowRoles' in overrides ? configWarning('evAllowRoles')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Free Providers',
+  instructions: 'Allow submissions from email addresses found to be using a free email provider such as Gmail and Yahoo!.',
+  id:           'evAllowFree',
+  name:         'evAllowFree',
+  on:           settings.evAllowFree,
+  disabled:     'evAllowFree' in overrides,
+  warning:      'evAllowFree' in overrides ? configWarning('evAllowFree')
+}) }}
+
+{{ forms.lightswitchField({
+  label:        'Disposable Providers',
+  instructions: 'Allow submissions from email addresses found to be using a disposable email provider.',
+  id:           'evAllowDisposable',
+  name:         'evAllowDisposable',
+  on:           settings.evAllowDisposable,
+  disabled:     'evAllowDisposable' in overrides,
+  warning:      'evAllowDisposable' in overrides ? configWarning('evAllowDisposable')
+}) }}
+{% endif %}

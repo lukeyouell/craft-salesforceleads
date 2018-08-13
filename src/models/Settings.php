@@ -25,20 +25,23 @@ class Settings extends Model
     // Public Properties
     // =========================================================================
 
-    /**
-     * @var string
-     */
     public $organisationId = null;
 
-    /**
-     * @var boolean
-     */
     public $honeypot = false;
 
-    /**
-     * @var string
-     */
     public $honeypotParam = 'honeypot';
+
+    public $evFormParam = 'email';
+
+    public $evAllowNoMX = false;
+
+    public $evAllowCatchAll = true;
+
+    public $evAllowRoles = true;
+
+    public $evAllowFree = true;
+
+    public $evAllowDisposable = false;
 
     // Public Methods
     // =========================================================================
@@ -49,7 +52,8 @@ class Settings extends Model
     public function rules()
     {
         return [
-            [['organisationId', 'honeypotParam'], 'string'],
+            [['organisationId', 'honeypotParam', 'evFormParam'], 'string'],
+            [['honeypot', 'evAllowNoMX', 'evAllowCatchAll', 'evAllowRoles', 'evAllowFree', 'evAllowDisposable'], 'boolean'],
             [['organisationId'], 'required'],
         ];
     }

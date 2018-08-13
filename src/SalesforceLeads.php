@@ -95,8 +95,9 @@ class SalesforceLeads extends Plugin
         return Craft::$app->view->renderTemplate(
             'salesforce-leads/settings',
             [
-                'settings' => $settings,
-                'overrides' => array_keys($overrides)
+                'settings'       => $settings,
+                'overrides'      => array_keys($overrides),
+                'emailValidator' => Craft::$app->plugins->getPlugin('email-validator')
             ]
         );
     }
