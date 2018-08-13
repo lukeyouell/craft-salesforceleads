@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - Honeypot Captcha
+- [Email Validation](https://github.com/lukeyouell/craft-emailvalidator) support
 
 ## 1.0.2 - 2018-04-16
 
