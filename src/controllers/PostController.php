@@ -80,7 +80,6 @@ class PostController extends Controller
               'success'    => true,
               'statusCode' => 200,
               'payload'    => $data,
-              'spam'       => true,
             ];
         } else {
             $response = PostService::postRequest($data);
