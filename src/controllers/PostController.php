@@ -45,16 +45,7 @@ class PostController extends Controller
         if ($settings->honeypot)
         {
             $val = Craft::$app->getRequest()->getBodyParam($settings->honeypotParam);
-
-            if ($val === null) {
-                Craft::error('Couldn\'t check honeypot field because no POST parameter named "'.$settings->honeypotParam.'" exists.');
-                return;
-            }
-
-            if ($val !== '') {
-                Craft::info('Salesforce Leads submission detected as spam.');
-                $isSpam = true;
-            }
+            $isSpam = SalesforceLeads::getInstance()->validationService->checkHoneypot($settings->honeypotParam, $val);
         }
 
         // Salesforce values
