@@ -10,7 +10,6 @@
 
 namespace lukeyouell\salesforceleads;
 
-use lukeyouell\salesforceleads\services\SalesforceLeadsService as SalesforceLeadsServiceService;
 use lukeyouell\salesforceleads\models\Settings;
 
 use Craft;
@@ -18,6 +17,7 @@ use craft\base\Plugin;
 use craft\events\PluginEvent;
 use craft\helpers\UrlHelper;
 use craft\services\Plugins;
+use craft\services\Utilities;
 
 use yii\base\Event;
 
@@ -28,7 +28,6 @@ use yii\base\Event;
  * @package   SalesforceLeads
  * @since     1.0.0
  *
- * @property  SalesforceLeadsServiceService $salesforceLeadsService
  */
 class SalesforceLeads extends Plugin
 {
@@ -58,6 +57,14 @@ class SalesforceLeads extends Plugin
                 if ($event->plugin === $this) {
                     Craft::$app->getResponse()->redirect(UrlHelper::cpUrl('settings/plugins/salesforce-leads'))->send();
                 }
+            }
+        );
+
+        Event::on(
+            Utilities::class,
+            Utilities::EVENT_REGISTER_UTILITY_TYPES,
+            function (RegisterComponentTypesEvent $event) {
+                $event->types[] = SalesforceLeadsUtility::class;
             }
         );
 
