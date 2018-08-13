@@ -85,6 +85,12 @@ You can hide the field with CSS:
 }
 ```
 
+### Email Validation
+
+If you have the [Email Validator](https://github.com/lukeyouell/craft-emailvalidator) plugin installed you can validate the email addresses being used to submit Salesforce leads.
+
+To configure the Email Validator, go to Settings → Salesforce Leads, choose a param name that your email field should have and toggle the validation processes you wish to enforce.
+
 ### Ajax Submissions
 
 You can optionally post contact form submissions over Ajax if you’d like. Just send a POST request to your site with all of the same data that would normally be sent:
@@ -155,5 +161,3 @@ We are posting to Salesforce using a HTTP POST request, so we don't receive any 
 ## Salesforce Leads Roadmap
 
 Some things to do, and ideas for potential features:
-
-* Submission logging

@@ -36,10 +36,12 @@ class SalesforceLeads extends Plugin
     // Static Properties
     // =========================================================================
 
-    /**
-     * @var SalesforceLeads
-     */
     public static $plugin;
+
+    // Public Properties
+    // =========================================================================
+    
+    public $schemaVersion = '1.1.0';
 
     // Public Methods
     // =========================================================================
