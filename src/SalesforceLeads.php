@@ -11,7 +11,7 @@
 namespace lukeyouell\salesforceleads;
 
 use lukeyouell\salesforceleads\models\Settings;
-use lukeyouell\salesforceleads\utilities\Logs;
+use lukeyouell\salesforceleads\utilities\Log;
 
 use Craft;
 use craft\base\Plugin;
@@ -66,7 +66,7 @@ class SalesforceLeads extends Plugin
             Utilities::class,
             Utilities::EVENT_REGISTER_UTILITY_TYPES,
             function (RegisterComponentTypesEvent $event) {
-                $event->types[] = Logs::class;
+                $event->types[] = Log::class;
             }
         );
 

@@ -16,7 +16,7 @@ use craft\services\SystemSettings;
 
 use lukeyouell\salesforceleads\SalesforceLeads;
 
-class Logs extends Utility
+class Log extends Utility
 {
     // Static
     // =========================================================================
@@ -26,7 +26,7 @@ class Logs extends Utility
      */
     public static function displayName(): string
     {
-        return Craft::t('salesforce-leads', 'Salesforce Leads Logs');
+        return Craft::t('salesforce-leads', 'Salesforce Leads');
     }
 
     /**
@@ -34,7 +34,7 @@ class Logs extends Utility
      */
     public static function id(): string
     {
-        return 'salesforce-leads-logs';
+        return 'salesforce-leads';
     }
 
     /**
