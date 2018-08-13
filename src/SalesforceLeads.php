@@ -59,14 +59,11 @@ class SalesforceLeads extends Plugin
             }
         );
 
-        Craft::info(
-            Craft::t(
-                'salesforce-leads',
-                '{name} plugin loaded',
-                ['name' => $this->name]
-            ),
-            __METHOD__
-        );
+        // Register components
+        $this->setComponents([
+            'postService'       => \lukeyouell\salesforceleads\services\PostService::class,
+            'validationService' => \lukeyouell\salesforceleads\services\ValidationService::class,
+        ]);
     }
 
     // Protected Methods
