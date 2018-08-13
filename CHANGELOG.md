@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.2 - 2018-08-13
+
+### Fixed
+- Submission was marked as valid if email passed validation even though it failed honeypot validation
+
 ## 1.1.1 - 2018-08-13
 
 ### Fixed
