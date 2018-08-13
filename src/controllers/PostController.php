@@ -42,7 +42,7 @@ class PostController extends Controller
         // Clean post
         $post = PostService::cleanPost($request->post());
 
-        // Honeypot captch
+        // Honeypot captcha
         if ($settings->honeypot)
         {
             $val = Craft::$app->getRequest()->getBodyParam($settings->honeypotParam);
