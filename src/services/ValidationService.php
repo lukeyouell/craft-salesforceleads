@@ -11,6 +11,7 @@
 namespace lukeyouell\salesforceleads\services;
 
 use lukeyouell\salesforceleads\SalesforceLeads;
+use lukeyouell\salesforceleads\records\Log as LogRecord;
 
 use Craft;
 use craft\base\Component;
@@ -33,12 +34,12 @@ class ValidationService extends Component
     public static function checkHoneypot($param = null, $val = null)
     {
         if ($val === null) {
-            Craft::error('Couldn\'t check honeypot field because no POST parameter named "'.$param.'" exists.');
+            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Couldn\'t check honeypot field because no POST parameter named "'.$param.'" exists.');
             return false;
         }
 
         if ($val !== '') {
-            Craft::info('Salesforce Leads submission detected as spam.');
+            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Submission detected as spam.');
             return true;
         }
     }
@@ -46,7 +47,7 @@ class ValidationService extends Component
     public function validateEmail($param = null, $email = null)
     {
         if ($email === null) {
-            Craft::error('Couldn\'t check email field because no POST parameter named "'.$param.'" exists.');
+            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Couldn\'t check email field because no POST parameter named "'.$param.'" exists.');
             return false;
         }
 
@@ -80,7 +81,7 @@ class ValidationService extends Component
         }
 
         if ($errors) {
-            Craft::info('Salesforce Leads submission failed email validation.');
+            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Salesforce Leads submission failed email validation.');
             return true;
         }
 

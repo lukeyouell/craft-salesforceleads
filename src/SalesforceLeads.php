@@ -11,10 +11,12 @@
 namespace lukeyouell\salesforceleads;
 
 use lukeyouell\salesforceleads\models\Settings;
+use lukeyouell\salesforceleads\utilities\Logs;
 
 use Craft;
 use craft\base\Plugin;
 use craft\events\PluginEvent;
+use craft\events\RegisterComponentTypesEvent;
 use craft\helpers\UrlHelper;
 use craft\services\Plugins;
 use craft\services\Utilities;
@@ -64,7 +66,7 @@ class SalesforceLeads extends Plugin
             Utilities::class,
             Utilities::EVENT_REGISTER_UTILITY_TYPES,
             function (RegisterComponentTypesEvent $event) {
-                $event->types[] = SalesforceLeadsUtility::class;
+                $event->types[] = Logs::class;
             }
         );
 
@@ -72,6 +74,7 @@ class SalesforceLeads extends Plugin
         $this->setComponents([
             'postService'       => \lukeyouell\salesforceleads\services\PostService::class,
             'validationService' => \lukeyouell\salesforceleads\services\ValidationService::class,
+            'logService'        => \lukeyouell\salesforceleads\services\LogService::class,
         ]);
     }
 

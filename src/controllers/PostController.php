@@ -11,6 +11,7 @@
 namespace lukeyouell\salesforceleads\controllers;
 
 use lukeyouell\salesforceleads\SalesforceLeads;
+use lukeyouell\salesforceleads\records\Log as LogRecord;
 
 use Craft;
 use craft\web\Controller;
@@ -79,6 +80,7 @@ class PostController extends Controller
               'payload'    => $data,
             ];
         } else {
+            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_SUCCESS, 'Submission handled.');
             $response = SalesforceLeads::getInstance()->postService->postRequest($data);
         }
 

@@ -1,0 +1,34 @@
+{% if logs %}
+  <div class="tableview">
+    <table class="data fullwidth collapsible">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Details</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for log in logs %}
+          <tr>
+            <td class="thin">
+              <span class="status {{
+                  log.status == 'success' ? 'green' :
+                  log.status == 'fail' ? 'red' :
+                  'light' }}"></span>
+            </td>
+            <td>
+              {{ log.details|default('Undefined') }}
+            </td>
+            <td>
+              {{ log.dateCreated|datetime }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </table>
+{% else %}
+  There are no submissions to display.
+{% endif %}
