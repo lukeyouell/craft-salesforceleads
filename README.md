@@ -40,7 +40,7 @@ Your form template can look something like this:
 
   <label>Email Address</label>
   <input type="email" name="email">
-  
+
   <label>Message</label>
   <textarea name="message"></textarea>
 
@@ -67,6 +67,23 @@ The above field names are **case-sensitive**.
 If you have a `redirect` hidden input, the user will be redirected to it upon successful submission. Again, this must be a hashed value.
 
 If you **don't** have a `redirect` hidden input, the plugin will respond with json.
+
+### Honeypot Captcha
+
+To configure the Honeypot Captcha, go to Settings → Salesforce Leads and choose a param name that your honeypot field should have.
+
+Then edit your form template(s), adding the honeypot field:
+
+```html
+<input class="hidden" type="text" name="secretHoneypotParamName">
+```
+
+You can hide the field with CSS:
+```css
+.hidden {
+  display: none;
+}
+```
 
 ### Ajax Submissions
 
