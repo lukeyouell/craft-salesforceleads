@@ -50,7 +50,7 @@ class PostController extends Controller
         }
 
         // Email validation
-        if (Craft::$app->plugins->getPlugin('email-validator'))
+        if (Craft::$app->plugins->getPlugin('email-validator') and $settings->emailValidation)
         {
             $email = Craft::$app->getRequest()->getBodyParam($settings->evFormParam);
             $invalid = SalesforceLeads::getInstance()->validationService->validateEmail($settings->evFormParam, $email);

@@ -69,7 +69,18 @@
 {% if emailValidator %}
 <hr>
 
-<h2 class="first">Email Validator</h2>
+<h2 class="first">Email Validation</h2>
+
+{{ forms.lightswitchField({
+  first:        true,
+  label:        'Email Validation',
+  instructions: 'Validate email addresses using the [Email Validator](https://github.com/lukeyouell/craft-emailvalidator) plugin.',
+  id:           'emailValidation',
+  name:         'emailValidation',
+  on:           settings.emailValidation,
+  disabled:     'emailValidation' in overrides,
+  warning:      'emailValidation' in overrides ? configWarning('emailValidation')
+}) }}
 
 {{ forms.textField({
     label:        'Email Form Param',
@@ -83,7 +94,6 @@
 }) }}
 
 {{ forms.lightswitchField({
-  first:        true,
   label:        'Format Check',
   instructions: 'Perform a standard email format check, verifying it\'s basic compliance.',
   on:           true,

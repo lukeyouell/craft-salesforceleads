@@ -31,6 +31,8 @@ class Settings extends Model
 
     public $honeypotParam = 'honeypot';
 
+    public $emailValidation = false;
+
     public $evFormParam = 'email';
 
     public $evAllowNoMX = false;
@@ -53,7 +55,7 @@ class Settings extends Model
     {
         return [
             [['organisationId', 'honeypotParam', 'evFormParam'], 'string'],
-            [['honeypot', 'evAllowNoMX', 'evAllowCatchAll', 'evAllowRoles', 'evAllowFree', 'evAllowDisposable'], 'boolean'],
+            [['honeypot', 'emailValidation', 'evAllowNoMX', 'evAllowCatchAll', 'evAllowRoles', 'evAllowFree', 'evAllowDisposable'], 'boolean'],
             [['organisationId'], 'required'],
         ];
     }
