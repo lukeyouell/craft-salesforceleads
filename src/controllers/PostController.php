@@ -14,7 +14,6 @@ use lukeyouell\salesforceleads\SalesforceLeads;
 
 use Craft;
 use craft\web\Controller;
-use lukeyouell\salesforceleads\services\PostService;
 
 /**
  * @author    Luke Youell
@@ -40,7 +39,7 @@ class PostController extends Controller
         $request = Craft::$app->getRequest();
 
         // Clean post
-        $post = PostService::cleanPost($request->post());
+        $post = SalesforceLeads::getInstance()->postService->cleanPost($request->post());
 
         // Honeypot captcha
         if ($settings->honeypot)
@@ -82,7 +81,7 @@ class PostController extends Controller
               'payload'    => $data,
             ];
         } else {
-            $response = PostService::postRequest($data);
+            $response = SalesforceLeads::getInstance()->postService->postRequest($data);
         }
 
         if ($response['success']) {
