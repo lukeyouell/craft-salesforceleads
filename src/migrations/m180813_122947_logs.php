@@ -15,7 +15,7 @@ use craft\config\DbConfig;
 use craft\db\Migration;
 use craft\helpers\MigrationHelper;
 
-class Install extends Migration
+class m180813_122947_logs extends Migration
 {
     // Public Properties
     // =========================================================================
