@@ -36,11 +36,28 @@ class PostController extends Controller
     {
         $this->requirePostRequest();
         $settings = SalesforceLeads::$plugin->getSettings();
+        $isSpam = false;
         $request = Craft::$app->getRequest();
 
         // Clean post
         $post = PostService::cleanPost($request->post());
-        
+
+        // Honeypot captch
+        if ($settings->honeypot)
+        {
+            $val = Craft::$app->getRequest()->getBodyParam($settings->honeypotParam);
+
+            if ($val === null) {
+                Craft::error('Couldn\'t check honeypot field because no POST parameter named "'.$settings->honeypotParam.'" exists.');
+                return;
+            }
+
+            if ($val !== '') {
+                Craft::info('Salesforce Leads submission detected as spam.');
+                $isSpam = true;
+            }
+        }
+
         // Salesforce values
         $oid = $request->getBodyParam('oid');
         $retUrl = $request->getBodyParam('retURL');
@@ -57,8 +74,17 @@ class PostController extends Controller
         // Merge form submission and salesforce params
         $data = array_merge($post, $salesforce);
 
-        // Post request
-        $response = PostService::postRequest($data);
+        // Post request (if spam not detected)
+        if ($isSpam) {
+            $response = [
+              'success'    => true,
+              'statusCode' => 200,
+              'payload'    => $data,
+              'spam'       => true,
+            ];
+        } else {
+            $response = PostService::postRequest($data);
+        }
 
         if ($response['success']) {
           Craft::$app->session->setFlash('payload', $response['payload']);

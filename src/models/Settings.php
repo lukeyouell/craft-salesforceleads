@@ -31,9 +31,14 @@ class Settings extends Model
     public $organisationId = null;
 
     /**
+     * @var boolean
+     */
+    public $honeypot = false;
+
+    /**
      * @var string
      */
-    public $leadSource = null;
+    public $honeypotParam = 'honeypot';
 
     // Public Methods
     // =========================================================================
@@ -44,7 +49,7 @@ class Settings extends Model
     public function rules()
     {
         return [
-            [['organisationId'], 'string'],
+            [['organisationId', 'honeypotParam'], 'string'],
             [['organisationId'], 'required'],
         ];
     }

@@ -37,3 +37,24 @@
     disabled:     'organisationId' in overrides,
     warning:      'organisationId' in overrides ? configWarning('organisationId')
 }) }}
+
+{{ forms.lightswitchField({
+  label:        'Honeypot Captcha',
+  instructions: 'Block spam submissions using the [honeypot captcha](https://haacked.com/archive/2007/09/11/honeypot-captcha.aspx/) method.',
+  id:           'honeypot',
+  name:         'honeypot',
+  on:           settings.honeypot,
+  disabled:     'honeypot' in overrides,
+  warning:      'honeypot' in overrides ? configWarning('honeypot')
+}) }}
+
+{{ forms.textField({
+    label:        'Honeypot Form Param',
+    instructions: 'The name that the honeypot field should have.',
+    id:           'honeypotParam',
+    name:         'honeypotParam',
+    placeholder:  settings.honeypotParam,
+    value:        settings.honeypotParam,
+    disabled:     'honeypotParam' in overrides,
+    warning:      'honeypotParam' in overrides ? configWarning('honeypotParam')
+}) }}
