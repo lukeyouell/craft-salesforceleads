@@ -35,7 +35,7 @@ class PostController extends Controller
     {
         $this->requirePostRequest();
         $settings = SalesforceLeads::$plugin->getSettings();
-        $isSpam = false;
+        $invalid = false;
         $request = Craft::$app->getRequest();
 
         // Clean post
@@ -45,7 +45,14 @@ class PostController extends Controller
         if ($settings->honeypot)
         {
             $val = Craft::$app->getRequest()->getBodyParam($settings->honeypotParam);
-            $isSpam = SalesforceLeads::getInstance()->validationService->checkHoneypot($settings->honeypotParam, $val);
+            $invalid = SalesforceLeads::getInstance()->validationService->checkHoneypot($settings->honeypotParam, $val);
+        }
+
+        // Email validation
+        if (Craft::$app->plugins->getPlugin('email-validator'))
+        {
+            $email = Craft::$app->getRequest()->getBodyParam($settings->evFormParam);
+            $invalid = SalesforceLeads::getInstance()->validationService->validateEmail($settings->evFormParam, $email);
         }
 
         // Salesforce values
@@ -64,8 +71,8 @@ class PostController extends Controller
         // Merge form submission and salesforce params
         $data = array_merge($post, $salesforce);
 
-        // Post request (if spam not detected)
-        if ($isSpam) {
+        // Post request (if request passes validation)
+        if ($invalid) {
             $response = [
               'success'    => true,
               'statusCode' => 200,

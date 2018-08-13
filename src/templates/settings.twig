@@ -45,7 +45,7 @@
 <h2 class="first">Honeypot Captcha</h2>
 
 {{ forms.lightswitchField({
-  first:         true,
+  first:        true,
   label:        'Honeypot Captcha',
   instructions: 'Block spam submissions using the [honeypot captcha](https://haacked.com/archive/2007/09/11/honeypot-captcha.aspx/) method.',
   id:           'honeypot',
@@ -80,6 +80,14 @@
     value:        settings.evFormParam,
     disabled:     'evFormParam' in overrides,
     warning:      'evFormParam' in overrides ? configWarning('evFormParam')
+}) }}
+
+{{ forms.lightswitchField({
+  first:        true,
+  label:        'Format Check',
+  instructions: 'Perform a standard email format check, verifying it\'s basic compliance.',
+  on:           true,
+  disabled:     true
 }) }}
 
 {{ forms.lightswitchField({
