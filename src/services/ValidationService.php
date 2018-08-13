@@ -81,7 +81,7 @@ class ValidationService extends Component
         }
 
         if ($errors) {
-            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Salesforce Leads submission failed email validation.');
+            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Submission failed email validation.');
             return true;
         }
 
