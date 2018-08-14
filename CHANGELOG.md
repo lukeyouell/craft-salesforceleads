@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.3 - 2018-08-14
+
+### Changed
+- OID and Honeypot values are no longer returned in the response
+
 ## 1.1.2 - 2018-08-13
 
 ### Fixed
