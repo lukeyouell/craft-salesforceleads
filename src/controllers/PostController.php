@@ -73,6 +73,9 @@ class PostController extends Controller
         // Merge form submission and salesforce params
         $data = array_merge($post, $salesforce);
 
+        // Unset data we don't want to return in the response
+        unset($data['oid'], $data[$settings->honeypotParam]);
+
         // Post request (if request passes validation)
         if ($isSpam or $invalid) {
             $response = [
