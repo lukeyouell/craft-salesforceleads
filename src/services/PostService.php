@@ -52,6 +52,8 @@ class PostService extends Component
 
     public static function postRequest($request)
     {
+        $settings = SalesforceLeads::$plugin->getSettings();
+
         // Fire a 'beforeSend' event
         $event = new SendEvent([
           'submission' => $request,
@@ -82,6 +84,9 @@ class PostService extends Component
           $self = new static;
           $self->trigger(self::EVENT_AFTER_SEND, $event);
 
+          // Unset data we don't want to return in the response
+          unset($request['oid'], $request[$settings->honeypotParam]);
+
           return [
             'success' => true,
             'statusCode' => $response->getStatusCode(),
@@ -91,6 +96,9 @@ class PostService extends Component
           ];
 
         } catch (\Exception $e) {
+
+          // Unset data we don't want to return in the response
+          unset($request['oid'], $request[$settings->honeypotParam]);
 
           return [
             'success' => false,
