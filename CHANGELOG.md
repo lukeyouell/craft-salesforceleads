@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 1.1.4 - 2018-09-10
+
+### Fixed
+- Some fields were being unset before being posted to Salesforce
+
 ## 1.1.3 - 2018-08-14
 
 ### Changed
