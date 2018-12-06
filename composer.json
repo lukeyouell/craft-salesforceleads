@@ -2,7 +2,7 @@
     "name": "lukeyouell/craft-salesforceleads",
     "description": "Generate Salesforce leads from form submissions.",
     "type": "craft-plugin",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "keywords": [
         "craft",
         "cms",
@@ -12,7 +12,7 @@
         "salesforce leads"
     ],
     "support": {
-        "docs": "https://github.com/lukeyouell/craft-salesforceleads/blob/v1/README.md",
+        "docs": "https://github.com/lukeyouell/craft-salesforceleads/blob/master/README.md",
         "issues": "https://github.com/lukeyouell/craft-salesforceleads/issues"
     },
     "license": "MIT",
@@ -36,10 +36,7 @@
         "schemaVersion": "1.1.0",
         "hasCpSettings": true,
         "hasCpSection": false,
-        "changelogUrl": "https://raw.githubusercontent.com/lukeyouell/craft-salesforceleads/v1/CHANGELOG.md",
-        "components": {
-            "salesforceLeadsService": "lukeyouell\\salesforceleads\\services\\SalesforceLeadsService"
-        },
+        "changelogUrl": "https://raw.githubusercontent.com/lukeyouell/craft-salesforceleads/master/CHANGELOG.md",
         "class": "lukeyouell\\salesforceleads\\SalesforceLeads"
     }
 }
