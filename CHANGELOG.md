@@ -5,11 +5,9 @@ All notable changes to this project will be documented in this file.
 ## 1.2.0 - 2018-12-06
 
 ## Added
-
 - `isSpam` event property that if set to true, causes the submission to fail silently
 
 ## Changed
-
 - `postService` is now `post`
 - `validationService` is now `validation`
 - `logService` is now `log`
