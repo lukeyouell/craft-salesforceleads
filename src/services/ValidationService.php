@@ -44,7 +44,7 @@ class ValidationService extends Component
         }
 
         $validator = Craft::$app->plugins->getPlugin('email-validator');
-        $validation = $validator::getInstance()->validation->validateEmail($email);
+        $validation = $validator::getInstance()->validationService->validateEmail($email);
 
         $errors = false;
 

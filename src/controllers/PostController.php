@@ -3,7 +3,6 @@
 namespace lukeyouell\salesforceleads\controllers;
 
 use lukeyouell\salesforceleads\SalesforceLeads;
-use lukeyouell\salesforceleads\records\Log as LogRecord;
 
 use Craft;
 use craft\web\Controller;
@@ -28,20 +27,20 @@ class PostController extends Controller
         $request = Craft::$app->getRequest();
 
         // Clean post
-        $post = SalesforceLeads::getInstance()->postcleanPost($request->post());
+        $post = SalesforceLeads::getInstance()->post->cleanPost($request->post());
 
         // Honeypot captcha
         if ($settings->honeypot)
         {
             $val = Craft::$app->getRequest()->getBodyParam($settings->honeypotParam);
-            $isSpam = SalesforceLeads::getInstance()->validationcheckHoneypot($settings->honeypotParam, $val);
+            $isSpam = SalesforceLeads::getInstance()->validation->checkHoneypot($settings->honeypotParam, $val);
         }
 
         // Email validation
         if (Craft::$app->plugins->getPlugin('email-validator') and $settings->emailValidation)
         {
             $email = Craft::$app->getRequest()->getBodyParam($settings->evFormParam);
-            $invalid = SalesforceLeads::getInstance()->validationvalidateEmail($settings->evFormParam, $email);
+            $invalid = SalesforceLeads::getInstance()->validation->validateEmail($settings->evFormParam, $email);
         }
 
         // Salesforce values
@@ -71,8 +70,7 @@ class PostController extends Controller
               'payload'    => $data,
             ];
         } else {
-            SalesforceLeads::getInstance()->loginsertLog(LogRecord::STATUS_SUCCESS, 'Submission handled.');
-            $response = SalesforceLeads::getInstance()->postpostRequest($data);
+            $response = SalesforceLeads::getInstance()->post->postRequest($data);
         }
 
         if ($response['success']) {
