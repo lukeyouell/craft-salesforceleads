@@ -26,12 +26,12 @@ class ValidationService extends Component
     public static function checkHoneypot($param = null, $val = null)
     {
         if ($val === null) {
-            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Couldn\'t check honeypot field because no POST parameter named "'.$param.'" exists.');
+            SalesforceLeads::getInstance()->log->insertLog(LogRecord::STATUS_FAIL, 'Couldn\'t check honeypot field because no POST parameter named "'.$param.'" exists.');
             return false;
         }
 
         if ($val !== '') {
-            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Submission detected as spam.');
+            SalesforceLeads::getInstance()->log->insertLog(LogRecord::STATUS_FAIL, 'Submission detected as spam.');
             return true;
         }
     }
@@ -39,12 +39,12 @@ class ValidationService extends Component
     public function validateEmail($param = null, $email = null)
     {
         if ($email === null) {
-            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Couldn\'t check email field because no POST parameter named "'.$param.'" exists.');
+            SalesforceLeads::getInstance()->log->insertLog(LogRecord::STATUS_FAIL, 'Couldn\'t check email field because no POST parameter named "'.$param.'" exists.');
             return false;
         }
 
         $validator = Craft::$app->plugins->getPlugin('email-validator');
-        $validation = $validator::getInstance()->validationService->validateEmail($email);
+        $validation = $validator::getInstance()->validation->validateEmail($email);
 
         $errors = false;
 
@@ -73,7 +73,7 @@ class ValidationService extends Component
         }
 
         if ($errors) {
-            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Submission failed email validation.');
+            SalesforceLeads::getInstance()->log->insertLog(LogRecord::STATUS_FAIL, 'Submission failed email validation.');
             return true;
         }
 

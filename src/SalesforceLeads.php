@@ -55,9 +55,9 @@ class SalesforceLeads extends Plugin
 
         // Register components
         $this->setComponents([
-            'postService'       => \lukeyouell\salesforceleads\services\PostService::class,
-            'validationService' => \lukeyouell\salesforceleads\services\ValidationService::class,
-            'logService'        => \lukeyouell\salesforceleads\services\LogService::class,
+            'post'       => \lukeyouell\salesforceleads\services\PostService::class,
+            'validation' => \lukeyouell\salesforceleads\services\ValidationService::class,
+            'log'        => \lukeyouell\salesforceleads\services\LogService::class,
         ]);
     }
 

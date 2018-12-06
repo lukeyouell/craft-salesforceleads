@@ -40,6 +40,6 @@ class Log extends Utility
 
     public static function getLogs()
     {
-        return SalesforceLeads::getInstance()->logService->getLogs();
+        return SalesforceLeads::getInstance()->log->getLogs();
     }
 }
