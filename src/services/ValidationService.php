@@ -1,12 +1,4 @@
 <?php
-/**
- * Salesforce Leads plugin for Craft CMS 3.x
- *
- * Generate Salesforce leads from form submissions.
- *
- * @link      https://github.com/lukeyouell
- * @copyright Copyright (c) 2018 Luke Youell
- */
 
 namespace lukeyouell\salesforceleads\services;
 
@@ -34,12 +26,12 @@ class ValidationService extends Component
     public static function checkHoneypot($param = null, $val = null)
     {
         if ($val === null) {
-            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Couldn\'t check honeypot field because no POST parameter named "'.$param.'" exists.');
+            SalesforceLeads::getInstance()->log->insertLog(LogRecord::STATUS_FAIL, 'Couldn\'t check honeypot field because no POST parameter named "'.$param.'" exists.');
             return false;
         }
 
         if ($val !== '') {
-            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Submission detected as spam.');
+            SalesforceLeads::getInstance()->log->insertLog(LogRecord::STATUS_FAIL, 'Submission detected as spam.');
             return true;
         }
     }
@@ -47,7 +39,7 @@ class ValidationService extends Component
     public function validateEmail($param = null, $email = null)
     {
         if ($email === null) {
-            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Couldn\'t check email field because no POST parameter named "'.$param.'" exists.');
+            SalesforceLeads::getInstance()->log->insertLog(LogRecord::STATUS_FAIL, 'Couldn\'t check email field because no POST parameter named "'.$param.'" exists.');
             return false;
         }
 
@@ -81,7 +73,7 @@ class ValidationService extends Component
         }
 
         if ($errors) {
-            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_FAIL, 'Submission failed email validation.');
+            SalesforceLeads::getInstance()->log->insertLog(LogRecord::STATUS_FAIL, 'Submission failed email validation.');
             return true;
         }
 

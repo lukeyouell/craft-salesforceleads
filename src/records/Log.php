@@ -1,12 +1,4 @@
 <?php
-/**
- * Salesforce Leads plugin for Craft CMS 3.x
- *
- * Generate Salesforce leads from form submissions.
- *
- * @link      https://github.com/lukeyouell
- * @copyright Copyright (c) 2018 Luke Youell
- */
 
 namespace lukeyouell\salesforceleads\records;
 
@@ -24,9 +16,6 @@ class Log extends ActiveRecord
     // Public Methods
     // =========================================================================
 
-    /**
-     * @inheritdoc
-     */
     public static function tableName(): string
     {
         return '{{%sf_logs}}';

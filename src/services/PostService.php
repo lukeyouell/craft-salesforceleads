@@ -1,39 +1,21 @@
 <?php
-/**
- * Salesforce Leads plugin for Craft CMS 3.x
- *
- * Generate Salesforce leads from form submissions.
- *
- * @link      https://github.com/lukeyouell
- * @copyright Copyright (c) 2018 Luke Youell
- */
 
 namespace lukeyouell\salesforceleads\services;
 
 use lukeyouell\salesforceleads\SalesforceLeads;
+use lukeyouell\salesforceleads\events\SendEvent;
+use lukeyouell\salesforceleads\records\Log as LogRecord;
 
 use Craft;
 use craft\base\Component;
-use lukeyouell\salesforceleads\events\SendEvent;
 
-/**
- * @author    Luke Youell
- * @package   SalesforceLeads
- * @since     1.0.0
- */
 class PostService extends Component
 {
     // Constants
     // =========================================================================
 
-    /**
-     * @event SubmissionEvent The event that is triggered before a message is sent
-     */
     const EVENT_BEFORE_SEND = 'beforeSend';
 
-    /**
-     * @event SubmissionEvent The event that is triggered after a message is sent
-     */
     const EVENT_AFTER_SEND = 'afterSend';
 
     // Public Methods
@@ -50,16 +32,26 @@ class PostService extends Component
         return $post;
     }
 
-    public static function postRequest($request)
+    public static function postRequest($submission)
     {
         $settings = SalesforceLeads::$plugin->getSettings();
 
         // Fire a 'beforeSend' event
         $event = new SendEvent([
-          'submission' => $request,
+            'submission' => $submission,
         ]);
         $self = new static;
         $self->trigger(self::EVENT_BEFORE_SEND, $event);
+
+        if ($event->isSpam) {
+            SalesforceLeads::getInstance()->log->insertLog(LogRecord::STATUS_FAIL, 'Submission suspected to be spam.');
+
+            return [
+                'success' => true,
+                'isSpam'  => true,
+                'payload' => $submission
+            ];
+        }
 
         $client = new \GuzzleHttp\Client([
           'base_uri' => 'https://webto.salesforce.com',
@@ -73,37 +65,41 @@ class PostService extends Component
             'POST',
             'servlet/servlet.WebToLead',
             [
-              'form_params' => $request
+              'form_params' => $submission
             ]
           );
 
           // Fire an 'afterSend' event
           $event = new SendEvent([
-            'submission' => $request,
+            'submission' => $submission,
           ]);
           $self = new static;
           $self->trigger(self::EVENT_AFTER_SEND, $event);
 
           // Unset data we don't want to return in the response
-          unset($request['oid'], $request[$settings->honeypotParam]);
+          unset($submission['oid'], $submission[$settings->honeypotParam]);
+
+          SalesforceLeads::getInstance()->log->insertLog(LogRecord::STATUS_SUCCESS, 'Submission handled.');
 
           return [
             'success' => true,
             'statusCode' => $response->getStatusCode(),
             'reason' => $response->getReasonPhrase(),
             'body' => (string) $response->getBody(),
-            'payload' => $request
+            'payload' => $submission
           ];
 
         } catch (\Exception $e) {
 
           // Unset data we don't want to return in the response
-          unset($request['oid'], $request[$settings->honeypotParam]);
+          unset($submission['oid'], $submission[$settings->honeypotParam]);
+
+          SalesforceLeads::getInstance()->log->insertLog(LogRecord::STATUS_FAIL, 'Submission failed ('.$e->getMessage().')');
 
           return [
             'success' => false,
             'reason' => $e->getMessage(),
-            'payload' => $request
+            'payload' => $submission
           ];
 
         }

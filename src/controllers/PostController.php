@@ -1,26 +1,12 @@
 <?php
-/**
- * Salesforce Leads plugin for Craft CMS 3.x
- *
- * Generate Salesforce leads from form submissions.
- *
- * @link      https://github.com/lukeyouell
- * @copyright Copyright (c) 2018 Luke Youell
- */
 
 namespace lukeyouell\salesforceleads\controllers;
 
 use lukeyouell\salesforceleads\SalesforceLeads;
-use lukeyouell\salesforceleads\records\Log as LogRecord;
 
 use Craft;
 use craft\web\Controller;
 
-/**
- * @author    Luke Youell
- * @package   SalesforceLeads
- * @since     1.0.0
- */
 class PostController extends Controller
 {
 
@@ -41,20 +27,20 @@ class PostController extends Controller
         $request = Craft::$app->getRequest();
 
         // Clean post
-        $post = SalesforceLeads::getInstance()->postService->cleanPost($request->post());
+        $post = SalesforceLeads::getInstance()->post->cleanPost($request->post());
 
         // Honeypot captcha
         if ($settings->honeypot)
         {
             $val = Craft::$app->getRequest()->getBodyParam($settings->honeypotParam);
-            $isSpam = SalesforceLeads::getInstance()->validationService->checkHoneypot($settings->honeypotParam, $val);
+            $isSpam = SalesforceLeads::getInstance()->validation->checkHoneypot($settings->honeypotParam, $val);
         }
 
         // Email validation
         if (Craft::$app->plugins->getPlugin('email-validator') and $settings->emailValidation)
         {
             $email = Craft::$app->getRequest()->getBodyParam($settings->evFormParam);
-            $invalid = SalesforceLeads::getInstance()->validationService->validateEmail($settings->evFormParam, $email);
+            $invalid = SalesforceLeads::getInstance()->validation->validateEmail($settings->evFormParam, $email);
         }
 
         // Salesforce values
@@ -84,8 +70,7 @@ class PostController extends Controller
               'payload'    => $data,
             ];
         } else {
-            SalesforceLeads::getInstance()->logService->insertLog(LogRecord::STATUS_SUCCESS, 'Submission handled.');
-            $response = SalesforceLeads::getInstance()->postService->postRequest($data);
+            $response = SalesforceLeads::getInstance()->post->postRequest($data);
         }
 
         if ($response['success']) {
