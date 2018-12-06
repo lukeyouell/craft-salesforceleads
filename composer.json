@@ -2,7 +2,7 @@
     "name": "lukeyouell/craft-salesforceleads",
     "description": "Generate Salesforce leads from form submissions.",
     "type": "craft-plugin",
-    "version": "1.1.4",
+    "version": "1.2.0",
     "keywords": [
         "craft",
         "cms",
