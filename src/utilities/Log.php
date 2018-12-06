@@ -1,12 +1,4 @@
 <?php
-/**
- * Salesforce Leads plugin for Craft CMS 3.x
- *
- * Generate Salesforce leads from form submissions.
- *
- * @link      https://github.com/lukeyouell
- * @copyright Copyright (c) 2018 Luke Youell
- */
 
 namespace lukeyouell\salesforceleads\utilities;
 
@@ -21,33 +13,21 @@ class Log extends Utility
     // Static
     // =========================================================================
 
-    /**
-     * @inheritdoc
-     */
     public static function displayName(): string
     {
         return Craft::t('salesforce-leads', 'Salesforce Leads');
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function id(): string
     {
         return 'salesforce-leads';
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function iconPath()
     {
         return Craft::getAlias("@lukeyouell/salesforceleads/icon-mask.svg");
     }
 
-    /**
-     * @inheritdoc
-     */
     public static function contentHtml(): string
     {
         return Craft::$app->getView()->renderTemplate(

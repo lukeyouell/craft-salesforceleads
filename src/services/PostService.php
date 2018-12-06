@@ -1,12 +1,4 @@
 <?php
-/**
- * Salesforce Leads plugin for Craft CMS 3.x
- *
- * Generate Salesforce leads from form submissions.
- *
- * @link      https://github.com/lukeyouell
- * @copyright Copyright (c) 2018 Luke Youell
- */
 
 namespace lukeyouell\salesforceleads\services;
 
@@ -16,24 +8,13 @@ use Craft;
 use craft\base\Component;
 use lukeyouell\salesforceleads\events\SendEvent;
 
-/**
- * @author    Luke Youell
- * @package   SalesforceLeads
- * @since     1.0.0
- */
 class PostService extends Component
 {
     // Constants
     // =========================================================================
 
-    /**
-     * @event SubmissionEvent The event that is triggered before a message is sent
-     */
     const EVENT_BEFORE_SEND = 'beforeSend';
 
-    /**
-     * @event SubmissionEvent The event that is triggered after a message is sent
-     */
     const EVENT_AFTER_SEND = 'afterSend';
 
     // Public Methods

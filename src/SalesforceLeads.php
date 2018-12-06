@@ -1,12 +1,4 @@
 <?php
-/**
- * Salesforce Leads plugin for Craft CMS 3.x
- *
- * Generate Salesforce leads from form submissions.
- *
- * @link      https://github.com/lukeyouell
- * @copyright Copyright (c) 2018 Luke Youell
- */
 
 namespace lukeyouell\salesforceleads;
 
@@ -23,14 +15,6 @@ use craft\services\Utilities;
 
 use yii\base\Event;
 
-/**
- * Class SalesforceLeads
- *
- * @author    Luke Youell
- * @package   SalesforceLeads
- * @since     1.0.0
- *
- */
 class SalesforceLeads extends Plugin
 {
     // Static Properties
@@ -40,15 +24,12 @@ class SalesforceLeads extends Plugin
 
     // Public Properties
     // =========================================================================
-    
+
     public $schemaVersion = '1.1.0';
 
     // Public Methods
     // =========================================================================
 
-    /**
-     * @inheritdoc
-     */
     public function init()
     {
         parent::init();
@@ -83,17 +64,11 @@ class SalesforceLeads extends Plugin
     // Protected Methods
     // =========================================================================
 
-    /**
-     * @inheritdoc
-     */
     protected function createSettingsModel()
     {
         return new Settings();
     }
 
-    /**
-     * @inheritdoc
-     */
     protected function settingsHtml(): string
     {
         // Get and pre-validate the settings
