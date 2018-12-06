@@ -7,4 +7,6 @@ use yii\base\Event;
 class SendEvent extends Event
 {
     public $submission;
+
+    public $isSpam = false;
 }
